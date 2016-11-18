@@ -17,11 +17,11 @@ class SpotService : NSObject{
         return self.spotInfoList.count
     }
     //spotInfoListに要素を追加
-    func addSpotInfo(_ spotInfo:SpotInfo){
+    func add(spotInfo:SpotInfo){
         self.spotInfoList.append(spotInfo)
     }
     //spotInfoListから指定したインデックスの要素を取得
-    func objectInListAtIndex(_ index:Int)->SpotInfo{
+    func objectInListAt(index:Int)->SpotInfo{
         return self.spotInfoList[index]
     }
 
@@ -31,11 +31,11 @@ class SpotService : NSObject{
         initializeDefaultDataList()
     }
     
-    func removeSpotInfo(_ index:Int){
+    func removeSpotInfo(index:Int){
         self.spotInfoList.remove(at: index)
     }
     
-    func editSpotInfo(_ spotInfo:SpotInfo,index:Int){
+    func edit(spotInfo:SpotInfo,index:Int){
         self.spotInfoList[index] = spotInfo
     }
     
@@ -44,13 +44,13 @@ class SpotService : NSObject{
         var area = "渋谷区渋谷２−２１−１"
         var comment = "渋谷をアートな街へ導くランドマーク"
         var spotInfo = SpotInfo(name: name, area: area, comment: comment)
-        addSpotInfo(spotInfo)
+        add(spotInfo:spotInfo)
 
         name = "東京ソラマチ"
         area = "墨田区押上１−１−２"
         comment = "東京ソラマチで丸ごと１日遊んじゃおう"
         spotInfo = SpotInfo(name: name, area: area, comment: comment)
-        addSpotInfo(spotInfo)
+        add(spotInfo:spotInfo)
     }
     
 }

@@ -10,12 +10,11 @@ import UIKit
 
 class MasterViewController: UITableViewController,SpotInfoEditDelegate {
 
-    //var objects = [AnyObject]()
     var spotService = SpotService()
 
     func spotInfoEditDid(_ spotInfo: SpotInfo) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
-            self.spotService.editSpotInfo(spotInfo, index: indexPath.row)
+            self.spotService.edit(spotInfo:spotInfo, index: indexPath.row)
             self.tableView.reloadData()
         }
     }
@@ -24,7 +23,7 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
         if segue.identifier == "DoneInput"{
             let addController = segue.source as! SpotInfoAddtionalTableViewController
             if let spotInfo = addController.spotInfo {
-                self.spotService.addSpotInfo(spotInfo)
+                self.spotService.add(spotInfo:spotInfo)
                 self.tableView.reloadData()
             }
         }
@@ -42,14 +41,7 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-
-        /*
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        self.navigationItem.rightBarButtonItem = addButton
-        */
-        
         for info in self.spotService.spotInfoList {
             print(info.name)
         }
@@ -72,7 +64,7 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let spotInfo = self.spotService.objectInListAtIndex(indexPath.row)
+                let spotInfo = self.spotService.objectInListAt(index: indexPath.row)
                 (segue.destination as! DetailViewController).detailItem = spotInfo
                 (segue.destination as! DetailViewController).delegate = self
 
@@ -102,12 +94,8 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Cellの識別子を指定してCellを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath) 
-        /*
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
-        */
         //Cellに表示したいデータを設定
-        let spotInfo = self.spotService.objectInListAtIndex((indexPath as NSIndexPath).row)
+        let spotInfo = self.spotService.objectInListAt(index: (indexPath as NSIndexPath).row)
         cell.textLabel?.text = spotInfo.name
         cell.detailTextLabel?.text = spotInfo.comment
         return cell
@@ -121,7 +109,7 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.spotService.removeSpotInfo((indexPath as NSIndexPath).row)
+            self.spotService.removeSpotInfo(index:(indexPath as NSIndexPath).row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
