@@ -179,6 +179,7 @@
 				TargetAttributes = {
 					66C81B6A1BD0F0B900D8B59F = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = KB74QHY9HH;
 						LastSwiftMigration = 0800;
 					};
 					66C81B811BD0F0BA00D8B59F = {
@@ -372,6 +373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KB74QHY9HH;
 				INFOPLIST_FILE = MasterDetailApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codable.$(PRODUCT_NAME:rfc1034identifier)";
@@ -384,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KB74QHY9HH;
 				INFOPLIST_FILE = MasterDetailApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codable.$(PRODUCT_NAME:rfc1034identifier)";

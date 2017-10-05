@@ -60,11 +60,11 @@ class SpotInfoEditTableViewController: UITableViewController,UITextFieldDelegate
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DoneInput" {
-            if self.spotNameField.text!.characters.count > 0
-                || self.areaField.text!.characters.count > 0
-                || self.commentField.text!.characters.count > 0 {
-                    self.detailItem = SpotInfo(name: self.spotNameField.text!, area: self.areaField.text!, comment: self.commentField.text!)
+        if  let name = self.spotNameField.text,
+            let area = self.areaField.text,
+            let comment = self.commentField.text {
+            if name.count > 0 || area.count > 0 || comment.count > 0 {
+                self.detailItem = SpotInfo(name: name, area: area, comment: comment)
             }
         }
     }

@@ -8,16 +8,9 @@
 
 import UIKit
 
-class SpotInfo : NSObject{
+struct SpotInfo {
     var name = ""
     var area = ""
-    var comment = ""
-    
-    init(name:String,area:String,comment:String){
-        super.init()
-        self.name = name
-        self.area = area
-        self.comment = comment
-    }
+    var comment = ""    
 }
 

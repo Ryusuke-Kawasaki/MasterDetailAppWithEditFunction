@@ -93,9 +93,9 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //Cellの識別子を指定してCellを取得
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath)
         //Cellに表示したいデータを設定
-        let spotInfo = self.spotService.objectInListAt(index: (indexPath as NSIndexPath).row)
+        let spotInfo = self.spotService.objectInListAt(index:indexPath.row)
         cell.textLabel?.text = spotInfo.name
         cell.detailTextLabel?.text = spotInfo.comment
         return cell
@@ -109,7 +109,7 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.spotService.removeSpotInfo(index:(indexPath as NSIndexPath).row)
+            self.spotService.removeSpotInfo(index:indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

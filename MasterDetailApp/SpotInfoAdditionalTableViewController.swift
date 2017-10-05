@@ -107,11 +107,11 @@ class SpotInfoAddtionalTableViewController: UITableViewController,UITextFieldDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        if(segue.identifier == "DoneInput"){
-            if(self.spotNameInput.text!.characters.count > 0
-                || self.areaInput.text!.characters.count > 0
-                || self.commentInput.text!.characters.count > 0){
-                let spotinfo = SpotInfo(name: self.spotNameInput.text!, area: self.areaInput.text!, comment: self.commentInput.text!)
+        if  let name = self.spotNameInput.text,
+            let area = self.areaInput.text,
+            let comment = self.commentInput.text {
+            if name.count > 0 || area.count > 0 || comment.count > 0 {
+                let spotinfo = SpotInfo(name: name, area: area, comment: comment)
                 self.spotInfo = spotinfo
             }
         }
