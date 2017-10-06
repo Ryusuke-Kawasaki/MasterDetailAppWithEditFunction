@@ -33,11 +33,12 @@ class SpotService : NSObject{
         //ファイルを読み込む場所を指定
         var url = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)[0]
         url.appendPathComponent("items.plist")
+        print(url.path)
         //ファイルから読み込んだ内容を
         if let data = try? Data(contentsOf: url) {
             let decoder = PropertyListDecoder()
             do {
-                spotInfoList = try decoder.decode([SpotInfo].self, from: data)
+                self.spotInfoList = try decoder.decode([SpotInfo].self, from: data)
             } catch {
                 print("Error decoding item array!")
             }

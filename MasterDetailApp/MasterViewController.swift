@@ -49,7 +49,6 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
         
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
         self.spotService.loadSpotInfoList()
         for info in self.spotService.spotInfoList {
             print(info.name)
@@ -72,15 +71,10 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 let spotInfo = self.spotService.objectInListAt(index: indexPath.row)
                 (segue.destination as! DetailViewController).detailItem = spotInfo
                 (segue.destination as! DetailViewController).delegate = self
-
-                /*
-                let object = objects[indexPath.row] as! NSDate
-            (segue.destinationViewController as! DetailViewController).detailItem = object
-                */
             }
         }
     }
@@ -107,6 +101,15 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
         let spotInfo = self.spotService.objectInListAt(index:indexPath.row)
         cell.textLabel?.text = spotInfo.name
         cell.detailTextLabel?.text = spotInfo.comment
+        
+        //ここを追記
+        //アイコンを表示すべきかどうかを判定
+        if spotInfo.checkmark {
+            cell.imageView?.image = UIImage(named: "trip")
+        }else {
+            cell.imageView?.image = nil
+        }
+        
         return cell
     }
 
@@ -115,7 +118,6 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
         return true
     }
 
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.spotService.removeSpotInfo(index:indexPath.row)
@@ -123,6 +125,29 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
         }
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //選択された行に対応するSpotInfoを取り出し、アイコンを表示・非表示設定を行う
+        var spotInfo = self.spotService.objectInListAt(index:indexPath.row)
+        spotInfo.checkmark = !(spotInfo.checkmark)
+        self.spotService.edit(spotInfo:spotInfo, index: indexPath.row)
+        self.spotService.saveSpotInfoList()
 
+        //選択されたセルを取得
+        if let cell =  tableView.cellForRow(at: indexPath) {
+            //1.アイコンを表示すべきかどうかを判定
+            if spotInfo.checkmark {
+                //表示するならアイコンを設定
+                cell.imageView?.image = UIImage(named: "trip")
+            }else {
+                //表示しないならnilを設定
+                cell.imageView?.image = nil
+            }
+        }
+        //セル選択解除時のアニメーションを設定
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
+
+
 
