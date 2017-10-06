@@ -12,6 +12,39 @@ class SpotService : NSObject{
     //SpotInfoを格納する配列プロパティ
     var spotInfoList:[SpotInfo] = []
     
+    //SpotInfoListをplistに保存
+    func saveSpotInfoList() {
+        //ファイルの保存先を指定。今回はドキュメントディレクトリ配下のitems.plistファイルにデータを保存する
+        var url = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)[0]
+        url.appendPathComponent("items.plist")
+
+        //spotInfoListをファイルに保存する
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(spotInfoList)
+            try data.write(to: url, options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encoding item array!")
+        }
+    }
+
+    //SpotInfoListの読み込み
+    func loadSpotInfoList() {
+        //ファイルを読み込む場所を指定
+        var url = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)[0]
+        url.appendPathComponent("items.plist")
+        //ファイルから読み込んだ内容を
+        if let data = try? Data(contentsOf: url) {
+            let decoder = PropertyListDecoder()
+            do {
+                spotInfoList = try decoder.decode([SpotInfo].self, from: data)
+            } catch {
+                print("Error decoding item array!")
+            }
+        }
+    }
+
+    
     //spotInfoListの要素数を取得
     func countOfList()->Int{
         return self.spotInfoList.count
@@ -28,7 +61,9 @@ class SpotService : NSObject{
     
     override init(){
         super.init()
-        initializeDefaultDataList()
+        if self.spotInfoList.count == 0 {
+            initializeDefaultDataList()
+        }
     }
     
     func removeSpotInfo(index:Int){

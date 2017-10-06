@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SpotInfo {
+struct SpotInfo : Codable{
     var name = ""
     var area = ""
     var comment = ""    

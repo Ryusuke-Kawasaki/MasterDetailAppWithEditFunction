@@ -11,10 +11,13 @@ import UIKit
 class MasterViewController: UITableViewController,SpotInfoEditDelegate {
 
     var spotService = SpotService()
-
+    
     func spotInfoEditDid(_ spotInfo: SpotInfo) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             self.spotService.edit(spotInfo:spotInfo, index: indexPath.row)
+            
+            self.spotService.saveSpotInfoList()
+            
             self.tableView.reloadData()
         }
     }
@@ -24,6 +27,9 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
             let addController = segue.source as! SpotInfoAddtionalTableViewController
             if let spotInfo = addController.spotInfo {
                 self.spotService.add(spotInfo:spotInfo)
+                
+                self.spotService.saveSpotInfoList()
+                
                 self.tableView.reloadData()
             }
         }
@@ -40,8 +46,11 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
+        self.spotService.loadSpotInfoList()
         for info in self.spotService.spotInfoList {
             print(info.name)
         }
