@@ -34,7 +34,7 @@ class SpotService : NSObject{
         var url = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)[0]
         url.appendPathComponent("items.plist")
         print(url.path)
-        //ファイルから読み込んだ内容を
+        //ファイルから読み込んだ内容を配列に格納する
         if let data = try? Data(contentsOf: url) {
             let decoder = PropertyListDecoder()
             do {
