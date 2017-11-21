@@ -126,7 +126,10 @@ class MasterViewController: UITableViewController,SpotInfoEditDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //選択された行に対応するSpotInfoを取り出し、アイコンを表示・非表示設定を行う
+        //以下の処理を行う
+        //1.選択された行に対応するSpotInfoを取り出す
+        //2.アイコンを表示・非表示の設定を更新
+        //3.現在の状態をファイルに保存する
         var spotInfo = self.spotService.objectInListAt(index:indexPath.row)
         spotInfo.checkmark = !(spotInfo.checkmark)
         self.spotService.edit(spotInfo:spotInfo, index: indexPath.row)
