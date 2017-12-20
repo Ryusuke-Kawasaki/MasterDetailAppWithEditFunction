@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpotService : NSObject{
+class SpotService {
     //SpotInfoを格納する配列プロパティ
     var spotInfoList:[SpotInfo] = []
     
@@ -60,8 +60,7 @@ class SpotService : NSObject{
     }
 
     
-    override init(){
-        super.init()
+    init(){
         if self.spotInfoList.count == 0 {
             initializeDefaultDataList()
         }
